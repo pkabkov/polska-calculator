@@ -32,7 +32,8 @@ def infix_to_postfix(expression):
             else:
                 raise ValueError("Неверный формат выражения!")
         else:
-            while stack and stack[-1] != '(' and PRIORITY.get(token, 0) <= PRIORITY.get(stack[-1], 0):
+            while (stack and stack[-1] != '('
+                   and PRIORITY.get(token, 0) <= PRIORITY.get(stack[-1], 0)):
                 output.append(stack.pop())
             stack.append(token)
 

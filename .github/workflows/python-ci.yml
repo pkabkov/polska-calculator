@@ -25,7 +25,7 @@ jobs:
 
     - name: Run lint
       run: |
-        pylint main infix_to_postfix_test poslka_test
+        pylint main.py infix_to_postfix_test.py polska_test.py
 
     - name: Run tests
       run: |

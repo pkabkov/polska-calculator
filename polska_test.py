@@ -32,7 +32,10 @@ def test_single_number():
 
 
 def test_operators_fallout():
-    """Тест неверного выражения, состоящего только из операторов, выдаёт ValueError."""
+    """
+    Тест неверного выражения, состоящего только из операторов,
+    выдаёт ValueError.
+    """
     with pytest.raises(ValueError):
         polska("- + / *")
 
@@ -53,4 +56,3 @@ def test_with_wrong_arguments():
     """Тест с неверными символами внутри вызывает ValueError"""
     with pytest.raises(ValueError):
         polska("a b +")
-

@@ -3,6 +3,7 @@
 """
 import operator
 import sys
+import math
 
 OPERATORS = {
     '+': operator.add,
@@ -37,7 +38,7 @@ def infix_to_postfix(expression):
                 stack.pop()
             else:
                 raise ValueError("Неверный формат выражения!")
-        else: 
+        else:
             while (stack and stack[-1] != '('
                    and ((token != '^' and PRIORITY.get(token, 0) <= PRIORITY.get(stack[-1], 0))
                         or (token == '^' and PRIORITY.get(token, 0) < PRIORITY.get(stack[-1], 0)))):
@@ -76,8 +77,7 @@ def polska(st):
             else:
                 cnt1, cnt2 = stack.pop(), stack.pop()
                 result = OPERATORS[i](cnt2, cnt1)
- 
-                if result == float('inf') or result != result:
+                if result == float('inf') or math.isnan(result):
                     raise ValueError
 
                 stack.append(result)
@@ -125,4 +125,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -4,9 +4,15 @@
 import operator
 import sys
 
-OPERATORS = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/': operator.truediv}
-PRIORITY = {'+': 1, '-': 1, '*': 2, '/': 2}
+OPERATORS = {
+    '+': operator.add,
+    '-': operator.sub,
+    '*': operator.mul,
+    '/': operator.truediv,
+    '^': operator.pow,
+}
 
+PRIORITY = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
 
 def infix_to_postfix(expression):
     """
@@ -31,9 +37,10 @@ def infix_to_postfix(expression):
                 stack.pop()
             else:
                 raise ValueError("Неверный формат выражения!")
-        else:
+        else: 
             while (stack and stack[-1] != '('
-                   and PRIORITY.get(token, 0) <= PRIORITY.get(stack[-1], 0)):
+                   and ((token != '^' and PRIORITY.get(token, 0) <= PRIORITY.get(stack[-1], 0))
+                        or (token == '^' and PRIORITY.get(token, 0) < PRIORITY.get(stack[-1], 0)))):
                 output.append(stack.pop())
             stack.append(token)
 
@@ -68,7 +75,12 @@ def polska(st):
                 digits_count += 1
             else:
                 cnt1, cnt2 = stack.pop(), stack.pop()
-                stack.append(OPERATORS[i](cnt2, cnt1))
+                result = OPERATORS[i](cnt2, cnt1)
+ 
+                if result == float('inf') or result != result:
+                    raise ValueError
+
+                stack.append(result)
                 lst.remove(i)
                 operators_count += 1
         result = stack.pop()
@@ -113,3 +125,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

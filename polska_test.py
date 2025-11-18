@@ -56,3 +56,18 @@ def test_with_wrong_arguments():
     """Тест с неверными символами внутри вызывает ValueError"""
     with pytest.raises(ValueError):
         polska("a b +")
+
+
+def test_power():
+    """Тест возведения в степень."""
+    assert polska("2 3 ^") == 8
+
+
+def test_power_chain():
+    """Тест правоассоциативности для степени."""
+    assert polska("2 3 2 ^ ^") == 512  # 2 ^ (3^2) = 2^9 = 512
+
+
+def test_power_with_other_ops():
+    """Тест степени вместе с другими операциями."""
+    assert polska("2 3 + 2 ^") == 25  # (2+3)^2
